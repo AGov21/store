@@ -1,0 +1,215 @@
+{% extends 'products/base.html' %}
+{% load static %}
+
+{% block content %}
+  {% if bouquet %}
+
+    <div class="product-detail-container">
+      <div class="product-image-section">
+        {% if bouquet.product.image %}
+          <div class="product-image-main">
+            <img src="{{ bouquet.product.image.url }}" alt="{{ product.name }}" class="product-main-image" width="100%" />
+          </div>
+        {% endif %}
+      </div>
+      
+
+      <div class="product-info-section">
+        <h1 class="product-name">{{ bouquet.product.name }}</h1>
+        <p class="product-price">
+          <span>{{ bouquet.product.price }}</span> тенге
+        </p>
+
+        <div class="product-options">
+          <label for="add-card">Добавить открытку:</label>
+          <select id="add-card" name="add_balloons">
+            <option value="no">Не выбрано</option>
+            {% for card in list_cards %}
+              <option value="{{ card.id }}">{{ card.product.name }} - {{ card.product.price }} тенге</option>
+            {% endfor %}
+          </select>
+
+          <label for="add-toy">Добавить мягкую игрушку:</label>
+          <select id="add-toy" name="add_toy">
+            <option value="no">Не выбрано</option>
+            {% for toy in list_toys %}
+              <option value="{{ toy.id }}">{{ toy.product.name }} - {{ toy.product.price }} тенге</option>
+            {% endfor %}
+          </select>
+
+          <label for="add-sweets">Добавить сладости:</label>
+          <select id="add-sweets" name="add_sweets">
+            <option value="no">Не выбрано</option>
+            {% for sweet in list_sweets %}
+              <option value="{{ sweet.id }}">{{ sweet.product.name }}({{ sweet.quantity }})шт - {{ sweet.product.price }} тенге</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        <button class="add-to-cart-btn">Добавить в корзину и купить</button>
+
+        <ul class="product-details">
+          <p class="product-description">{{ bouquet.description }}</p>
+        </ul>
+
+        <p class="product-note">Для вашего удобства перед отправкой и при получении букета предоставляется ФОТО-ОТЧЕТ.</p>
+      </div>
+    </div>
+    {% elif combo %}
+    <div class="product-detail-container">
+      <!-- Секция изображения -->
+      <div class="product-image-section">
+        {% if combo.product.image %}
+          <div class="product-image-main">
+            <img src="{{ combo.product.image.url }}" alt="{{ combo.name }}" class="product-main-image" />
+          </div>
+          {% comment %} <div class="combo-image-thumbnails">
+            <!-- Миниатюры изображений -->
+            <img src="{{ combo.image.url }}" alt="{{ combo.name }}" class="combo-thumbnail" />
+            <img src="{{ combo.image.url }}" alt="{{ combo.name }}" class="combo-thumbnail" />
+          </div> {% endcomment %}
+        {% endif %}
+      </div>
+
+      <!-- Секция информации -->
+      <div class="product-info-section">
+        <h1 class="product-name">{{ combo.product.name }}</h1>
+        <p class="product-price">
+          <span>{{ combo.product.price }}</span> тенге
+        </p>
+
+        <div class="product-options">
+          <label for="add-cards">Добавить открытку:</label>
+          <select id="add-cards" name="add_balloons">
+            <option value="no">Не выбрано</option>
+            {% for card in list_cards %}
+              <option value="{{ card.id }}">{{ card.product.name }} - {{ card.product.price }} тенге</option>
+            {% endfor %}
+          </select>
+
+          <label for="add-toy">Добавить мягкую игрушку:</label>
+          <select id="add-toy" name="add_toy">
+            <option value="no">Не выбрано</option>
+            {% for toy in list_toys %}
+              <option value="{{ toy.id }}">{{ toy.product.name }} - {{ toy.product.price }} тенге</option>
+            {% endfor %}
+          </select>
+
+          <label for="add-sweets">Добавить сладости:</label>
+          <select id="add-sweets" name="add_sweets">
+            <option value="no">Не выбрано</option>
+            {% for sweet in list_sweets %}
+              <option value="{{ sweet.id }}">{{ sweet.product.name }}({{ sweet.quantity }})шт - {{ sweet.product.price }} тенге</option>
+            {% endfor %}
+          </select>
+        </div>
+
+        {% comment %} <p class="product-composition">Состав букета: {{ combo.bouquet.get_flowers_names }}</p> {% endcomment %}
+        <p class="product-description">{{ combo.description }}</p>
+
+        <button class="add-to-cart-btn">Добавить в корзину и купить</button>
+      </div>
+    </div>
+
+  {% elif toy %}
+    <div class="product-detail-container">
+      <!-- Секция изображения -->
+      <div class="product-image-section">
+        {% if toy.product.image %}
+          <div class="product-image-main">
+            <img src="{{ toy.product.image.url }}" alt="{{ toy.name }}" class="product-main-image" />
+          </div>
+        {% endif %}
+      </div>
+
+      <!-- Секция информации -->
+      <div class="product-info-section">
+        <h1 class="product-name">{{ toy.product.name }}</h1>
+        <p class="product-price">
+          <span>{{ toy.product.price }}</span> тенге
+        </p>
+
+        <div class="product-options">
+          <div class="add-card-section">
+            <label for="add-card">Добавить открытку:</label>
+            <select id="add-card" name="add_balloons">
+              <option value="no">Не выбрано</option>
+              {% for card in list_cards %}
+                <option value="{{ card.id }}">{{ card.product.name }} - {{ card.product.price }} тенге</option>
+              {% endfor %}
+            </select>
+          </div>
+        </div>
+        
+
+        <!-- Кнопка добавления в корзину -->
+        <div class="product-actions">
+          <button class="add-to-cart-btn">Добавить в корзину</button>
+        </div>
+      </div>
+    </div>
+
+  {% elif card %}
+    <div class="product-detail-container">
+      <!-- Секция изображения -->
+      <div class="product-image-section">
+        {% if card.product.image %} 
+          <div class="product-image-main">
+            <img src="{{ card.product.image.url }}" alt="{{ card.name }}" class="product-main-image" />
+          </div>
+          {% comment %} <div class="card-image-thumbnails">
+            <!-- Миниатюры изображений -->
+            <img src="{{ card.image.url }}" alt="{{ card.name }}" class="card-thumbnail" />
+            <img src="{{ card.image.url }}" alt="{{ card.name }}" class="card-thumbnail" />
+          </div> {% endcomment %}
+        {% endif %} 
+      </div>
+
+      <!-- Секция информации -->
+      <div class="product-info-section">
+        <h1 class="product-name">{{ card.product.name }}</h1>
+        <p class="product-price">
+          <span>{{ card.product.price }}</span> тенге
+        </p>
+
+        <div class="product-options">
+          <label for="add-note">Добавить записку:</label>
+          <select id="add-note" name="add_note">
+            <option value="no">Не выбрано</option>
+            <option value="yes">Да</option>
+          </select>
+        </div>
+
+      <p class="card-description">{{ card.description }}</p> 
+
+        <button class="add-to-cart-btn">Добавить в корзину и купить</button>
+      </div>
+    </div>
+
+  {% elif sweet %}
+    <div class="product-detail-container">
+      <!-- Секция изображения -->
+      <div class="product-image-section">
+        {% if sweet.product.image %}
+          <div class="product-image-main">
+            <img src="{{ sweet.product.image.url }}" alt="{{ sweet.name }}" class="product-main-image" />
+          </div>
+        {% endif %}
+      </div>
+
+      <!-- Секция информации -->
+      <div class="product-info-section">
+        <h1 class="product-name">{{ sweet.product.name }}</h1>
+        <p class="product-price">
+          <span>{{ sweet.product.price }}</span> тенге
+        </p>
+        <p class="product-description">{{ sweet.description }}</p>
+
+        <!-- Кнопка добавления в корзину -->
+        <div class="product-actions">
+          <button class="add-to-cart-btn">Добавить в корзину</button>
+        </div>
+      </div>
+    </div>
+  {% endif %}
+{% endblock %}

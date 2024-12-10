@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    <title>{% block title %}Магазин{% endblock %}</title>
+    {% block css %}
+    {% endblock %}
+</head>
+<body>
+    <div class='top-menu'>
+        <ul>
+            <a href="{% url 'home' %}">Главная страница</a>
+            <a href="#">Контакты</a>
+            <a href="#">Меню</a>
+            <a href="#">Корзина</a>
+            {% if user.is_authenticated %}
+                <a href="#">Профиль</a>
+                {% if user.is_superuser or user.is_staff %}
+                    <a href="{% url 'admin:index' %}">Админ-панель</a>
+                {% endif %}
+                <a href="{% url 'users:logout' %}">Выход</a>
+
+            {% else %}
+                <li>
+                    <a href="{% url 'users:login' %}">Войти</a>
+                    <a href="{% url 'users:register' %}">Регистрация</a>
+                </li>
+            {% endif %}
+        </ul>
+    </div>
+
+    <main>
+        {% block content %}
+        {% endblock %}
+    </main>
+    <footer>
+        <p>&copy; 2024 Магазин. Все права защищены.</p> 
+    </footer>
+</body>
+</html>

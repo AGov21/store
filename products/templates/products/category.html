@@ -1,0 +1,31 @@
+{% extends 'products/base.html' %}
+{% load static %}
+
+{% block content %}
+<nav class='categories'>
+    <ul>
+        {% for category in categories %}
+            <li><a href="{% url 'products:category' category.id %}">{{ category.name }}</a></li>
+        {% endfor %}
+    </ul>
+</nav>
+
+<h1>Каталог {{ category.name }}</h1>
+<p>{{ category.description }}</p>
+
+{% for product in products %}
+<div class="product-card">
+    {% if product.image %}
+        <img src="{{ product.image.url }}" alt="{{ product.name }}" class="product-image" width="200">
+    {% else %}
+        <img src="{% static 'default-image.jpg' %}" alt="{{ product.name }}" class="product-image" width="200">
+    {% endif %}
+    <div class="product-info">
+        <h2 class="product-name">{{ product.name }}</h2>
+        <p class="product-price">Цена: {{ product.price }} тенге.</p>
+        <p><a href="{% url 'products:product' product.id %}">Подробнее</a></p>
+    </div>
+</div>
+{% endfor %}
+
+{% endblock %}

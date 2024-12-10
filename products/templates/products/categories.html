@@ -1,0 +1,21 @@
+{% extends 'products/base.html' %}
+
+{% block content %}
+<nav class='categories'>
+    {% if show_categories %}
+    <ul>
+        {% for category in categories %}
+            <li><a href="{% url 'products:category' category.id %}">{{ category.name }}</a></li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+</nav>
+
+<h2>Все категории</h2>
+<div>
+    {% for category in categories %}
+        <div>{{ category.name }}</div>
+    {% endfor %}
+</div>
+
+{% endblock %}
