@@ -1,0 +1,56 @@
+{% extends "products/base.html" %}
+{% load static %}
+
+{% block css %}
+<link rel="stylesheet" href="{% static 'css/profile.css' %}">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <h2 class="text-center mb-4">Редактирование профиля</h2>
+            <form action="{% url 'users:profile' %}" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                
+                <!-- Image upload -->
+                <div class="form-group mb-4">
+                    <label for="image" class="form-label">Выберите изображение</label>
+                    <div class="profile-image-container">
+                        {{ form.image }}
+                    </div>
+                </div>
+
+                <!-- First name and last name -->
+                <div class="row">
+                    <div class="col-md-6 mb-3">
+                        <label for="first_name" class="form-label">Имя</label>
+                        {{ form.first_name }}
+                    </div>
+                    <div class="col-md-6 mb-3">
+                        <label for="last_name" class="form-label">Фамилия</label>
+                        {{ form.last_name }}
+                    </div>
+                </div>
+
+                <!-- Username -->
+                <div class="mb-3">
+                    <label for="username" class="form-label">Имя пользователя</label>
+                    {{ form.username }}
+                </div>
+
+                <!-- Email -->
+                <div class="mb-3">
+                    <label for="email" class="form-label">Адрес электронной почты</label>
+                    {{ form.email }}
+                </div>
+
+                <!-- Submit button -->
+                <div class="text-center">
+                    <button type="submit" class="btn btn-primary btn-lg">Сохранить</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

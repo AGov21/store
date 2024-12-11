@@ -1,5 +1,5 @@
 from django.shortcuts import redirect, render
-from users.forms import UserLoginForm, UserRegisterForm
+from users.forms import UserLoginForm, UserRegisterForm, UserProfileForm
 from django.shortcuts import HttpResponseRedirect, redirect
 from django.urls import reverse
 from django.contrib.auth import authenticate, login
@@ -46,6 +46,22 @@ def user_register(request):
     return render(request, 'users/register.html', context)
 
 
+
+def user_profile(request):
+    if request.method == 'POST':
+        form = UserProfileForm(data=request.POST, files=request.FILES, instance=request.user)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Ваш профиль был успешно обновлен!')
+            return HttpResponseRedirect(reverse('users:profile'))
+        else:
+            print(form.errors)
+    else:
+        form = UserProfileForm(instance=request.user)
+    context = {
+        'form': form
+    }
+    return render(request, 'users/profile.html', context)
 
 
 

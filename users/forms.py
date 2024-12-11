@@ -30,3 +30,27 @@ class UserRegisterForm(UserCreationForm):
             "password1",
             "password2",
         ]
+
+
+class UserProfileForm(UserChangeForm):
+    def __init__(self, *args, **kwargs):
+        user = kwargs.get("instance")
+        super().__init__(*args, **kwargs)
+
+        if user and user.email:
+            self.fields["email"].widget.attrs["readonly"] = True
+            self.fields["email"].widget.attrs["class"] = "profile-input readonly"
+        else:
+            self.fields["email"].widget.attrs["placeholder"] = "Введите ваш email"
+
+    class Meta:
+        model = User
+        fields = ["first_name", "last_name", "username", "image", "email"]
+        widgets = {
+            "first_name": forms.TextInput(attrs={"placeholder": "Введите имя"}),
+            "last_name": forms.TextInput(attrs={"placeholder": "Введите фамилию"}),
+            "username": forms.TextInput(
+                attrs={"placeholder": "Введите имя пользователя", "readonly": True}
+            ),
+            "email": forms.EmailInput(attrs={"placeholder": "Введите email"})
+        }

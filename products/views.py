@@ -21,15 +21,20 @@ class ProductDetaileView(DetailView):
         context = super().get_context_data(**kwargs)
         product = self.get_object()
 
-        if product.product_type == 'greeting_card':
-            related_name = 'cards'
-        else:
-            related_name = f"{product.product_type}s"
-        
-        context[product.product_type] = getattr(product, related_name, None)
-        context["list_sweets"] = Sweet.get_list_sweets()
-        context["list_cards"] = GreetingCard.get_list_cards()
-        context["list_toys"] = Toy.get_list_toys()
+        related_name = {
+            'bouquet': 'bouquets',
+            'sweet': 'sweets',
+            'toy': 'toys',
+            'greeting_card': 'cards',
+            'combo': 'combos'
+        }
+        related_attr = related_name.get(product.product_type)
+        context[product.product_type] = product.product_type = getattr(product, related_attr, None)
+        context.update({
+            "list_sweets": Sweet.get_list_sweets(),
+            "list_cards": GreetingCard.get_list_cards(),
+            "list_toys": Toy.get_list_toys()
+        })
 
         return context
 
@@ -63,3 +68,8 @@ class HomeTemplate(TemplateView):
         context["bouquets"] = Bouquet.objects.all()
 
         return context
+
+
+
+class ContactTemplate(TemplateView):
+    template_name = 'products/contact.html'

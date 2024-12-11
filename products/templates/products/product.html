@@ -149,13 +149,13 @@
       </div>
     </div>
 
-  {% elif card %}
+  {% elif greeting_card %}
     <div class="product-detail-container">
       <!-- Секция изображения -->
       <div class="product-image-section">
-        {% if card.product.image %} 
+        {% if greeting_card.product.image %} 
           <div class="product-image-main">
-            <img src="{{ card.product.image.url }}" alt="{{ card.name }}" class="product-main-image" />
+            <img src="{{ greeting_card.product.image.url }}" alt="{{ greeting_card.name }}" class="product-main-image" />
           </div>
           {% comment %} <div class="card-image-thumbnails">
             <!-- Миниатюры изображений -->
@@ -167,9 +167,9 @@
 
       <!-- Секция информации -->
       <div class="product-info-section">
-        <h1 class="product-name">{{ card.product.name }}</h1>
+        <h1 class="product-name">{{ greeting_card.product.name }}</h1>
         <p class="product-price">
-          <span>{{ card.product.price }}</span> тенге
+          <span>{{ greeting_card.product.price }}</span> тенге
         </p>
 
         <div class="product-options">
@@ -180,7 +180,7 @@
           </select>
         </div>
 
-      <p class="card-description">{{ card.description }}</p> 
+      <p class="card-description">{{ greeting_card.description }}</p> 
 
         <button class="add-to-cart-btn">Добавить в корзину и купить</button>
       </div>
