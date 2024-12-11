@@ -15,17 +15,5 @@
 </div>
 
 
-{% comment %} {% for bouquet in bouquets %}
-<div class="product-card">
-    {% if bouquet.product.image %}
-        <img src="{{ bouquet.product.image.url }}" alt="{{ bouquet.product.name }}" class="product-image", width='200'>
-    {% endif %} 
-    <div class="product-info">
-        <h2 class="product-name">{{ bouquet.product.name }}</h2>
-        <p class="product-price">Цена: {{ bouquet.product.price }} тенге.</p>
-        <p><a href="{% url 'products:bouquet' bouquet.id %}">Подробнее</a></p>  
-    </div>
-</div>
-{% endfor %}  {% endcomment %}
 
 {% endblock %}
